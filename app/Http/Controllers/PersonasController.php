@@ -19,7 +19,7 @@ class PersonasController extends Controller
     public function create()
     {
         //Formulario para agregar datos
-        return "Aquí puedes agregar";
+        return view('agregar');
     }
 
   
@@ -32,6 +32,7 @@ class PersonasController extends Controller
     public function show(Personas $personas)
     {
         //Obtener UN SOLO REGISTRO de la tabla
+        return view('eliminar');
     }
 
    /*PARA EDITAR*/ 
@@ -39,7 +40,7 @@ class PersonasController extends Controller
     {
         //Sirve para traer los datos que se van a editar 
         //y los coloca en un formulario
-        return "Aquí se actualiza";
+        return view('actualizar');
     }
 
    
@@ -52,6 +53,7 @@ class PersonasController extends Controller
     public function destroy(Personas $personas)
     {
         //ELIMINA UN REGISTRO DE LA BD
+       
     }
     
 }

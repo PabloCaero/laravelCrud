@@ -5,13 +5,13 @@
 @section('tituloPagina', 'Crud con Laravel')
 
 @section('contenido')
-<br><br>
+
 <!-- TRAIDO DESDE BOOTSTRAP -->
 
 <div class="card">
   <h5 class="card-header">CRUD con LARAVEL y MySQL</h5>
   <div class="card-body">
-    <h5 class="card-title">Listado de Personas</h5>
+    <h5 class="card-title text-center">Listado de Personas</h5>
 
     <p>
         <a href="{{route('personas.create')}}" class="btn btn-primary"> Agregar Nueva Persona</a>
@@ -41,8 +41,8 @@
                     <td>{{$item -> materno}}</td>    
                     <td>{{$item -> nombre}}</td>    
                     <td>{{$item -> fecha_nacimiento}}</td>    
-                    <td></td>    
-                    <td></td>    
+                    <td><a class="btn btn-warning" href={{route('personas.edit')}}>Modificar</a></td>    
+                    <td><a class="btn btn-danger" href={{route('personas.show')}}>Eliminar</a></td>    
                 </tr>  
                 
                 @endforeach
