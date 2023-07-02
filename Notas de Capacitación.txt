@@ -1,0 +1,189 @@
+Laravel 8
+
+CRUD con Laravel y MySql
+------------------------
+Temas:
+-Instalación de Laravel 8 con Composer 
+-Crear layout y agregar dependencias al proyecto
+	-Bootstrap 5 (CDN)
+	-Fontawesome (CDN)
+-Crear base de datos y conexión con Laravel 8
+-Crear migración, Modelo y Controlador
+-Creación de Rutas
+-Creación de Vistas
+-Programación de:
+	-Insertar
+	-Mostrar datos en datatable
+	-Actualizar
+	-Eliminar
+-Paginación
+------------------------
+Herramientas:
+-Visual Studio Code
+	-Extensión Laravel Blade Snippets
+	-Extensión Laravel Snippets
+	-Extensión PHP Intelephense
+
+Herramientas de Desarrollo:
+-Composer OK
+-XAMPP, Laragon, Lamp, etc. OK
+-MySQL Workbench o phpmyadmin OK
+
+------------------------
+Clase 1:
+
+Para crear un proyecto Laravel
+composer create-project laravel/laravel example-app
+
+Para ir al proyecto
+cd laravelCrud
+
+Para arrancar el server
+php artisan serve
+
+------------------------
+Clase 2:
+
+Agregar Dependencias
+
+resources: welcome.blade.php ES LA PAGINA DE INICIO
+DEL PROYECTO
+
+1 - Crear carpeta Layout
+2 - Borrar todo de la pagina de incio
+3 - Creo una plantilla que se llame plantilla.blade.php -> 	
+    Da funcionalidades que no tenemos de manera nativa en php
+4 - Starter Template de Bootstrap5 https://getbootstrap.com/docs/5.0/getting-started/introduction/
+5 - Fontawesome https://fontawesome.com/v5/docs/web/use-with/wordpress/install-manually
+
+6 - @yield('tituloPagina')
+7 - Gracias a la plantilla pueden reutilizarse para otras
+    Páginas
+
+------------------------
+Clase 3:
+
+Conexión a MySql
+
+1 - Se crea base de datos en MySql
+2 - config / database    'default' => env('DB_CONNECTION', 'mysql'),
+3 - database / migrations -> Tiene tablas para que nosotros
+		             podamos crear en la base de
+			     datos
+4 - Probaremos comando para usar las migraciones	
+    En la consola -> $ php artisan migrate
+    Importa tablas por defecto
+
+------------------------
+Clase 4: MVC
+
+1 - SE CREA POR CLI o consola
+Migración: 
+$ php artisan make:migration create_personas_table
+2 - En migrations, podemos encontrar la tabla creada
+3 - Se ejecuta nuevamente el comando $ php artisan migrate
+4 - Ejecutamos el comando
+    $ php artisan make:model Personas -r
+    Para que nos cree el Modelo y Controlador
+5 - MODEL: Podemos ver lo creado en app/Models -> Ahí se encuentran las CLASES
+    Aunque no trae nada, ya esta internamente enlazado
+    a la tabla creada
+6 - CONTROLLER: Podemos ver lo creado en app/Http
+    Al crearlo, se crea en esta clase todos los
+    métodos para insertar, actualizar, etc. 
+
+------------------------
+Clase 5: Creación de las Rutas
+
+1 - Una ruta es lo que conecta a la VIEW con un MODEL
+    o con la petición del cliente
+    TODAS las peticiones deben pasar por rutas.
+2 - app/routes
+3 - Para asociarlos Ruta y Controlador:
+    Codigo de Ruta:
+    Route::get('/', [PersonasController::class, 'index']) -> name('personas.index');
+    Codigo de Controlador
+      public function index()
+    {
+        //Página de Inicio
+
+        return view('welcome');
+    }
+    
+------------------------
+Clase 6: Vistas
+-Creamos la Vista donde SE LISTARAN LAS PERSONAS
+-Se agrega una CARD desde BOOTSTRAP y se ARMA UNA TABLA
+-Agrego registros a la tabla Personas desde MySql
+--En PersonasController envío:
+ public function index()
+    {
+        //TRAE TODA LA TABLA DE PERSONAS
+        $datos = Personas::all();
+        return view('inicio', compact('datos')); //ENTRE COMILLAS SIMPLES
+    }
+--Y desde Inicio:
+@php    
+        print_r($datos);
+@endphp
+
+Esto trae todos los datos, pero hay que recorrerlos
+ @foreach ($datos as $item)                         
+
+                <tr>
+                    <td>{{$item -> paterno}}</td>    
+                    <td>{{$item -> materno}}</td>    
+                    <td>{{$item -> nombre}}</td>    
+                    <td>{{$item -> fecha_nacimiento}}</td>    
+                    <td></td>    
+                    <td></td>    
+                </tr>  
+                
+                @endforeach
+           </tbody>
+
+------------------------
+Clase 7: Vista para Insertar Datos
+
+@extends('layout/plantilla')
+
+@section("tituloPagina", "Crear un nuevo registro")
+
+@section('contenido')
+
+<div class="card">
+    <h5 class="card-header">Agregar Nuevo Registro</h5>
+    <div class="card-body">
+     
+      <p class="card-text">
+            <form>
+                <label for="">Apellido Paterno:</label>
+                <input type="text" name="paterno" class="form-control" required>
+
+                <label for="">Apellido Materno:</label>
+                <input type="text" name="materno" class="form-control" required>
+
+                <label for="">Nombre:</label>
+                <input type="text" name="nombre" class="form-control" required>
+
+                <label for="">Fecha de Nacimiento:</label>
+                <input type="date" name="fecha_nacimiento" class="form-control" required>
+
+                <br>
+
+                <!--PARA REGRESAR-->
+                <a href="{{route("personas.index")}}" class="btn btn-info">Regresar </a>
+
+                <!--PARA INSERTAR DATOS-->
+                <button class="btn btn-primary">Agregar</button>
+
+            </form>
+
+      </p>
+    
+    </div>
+  </div>
+
+------------------------
+Clase 8: Vista para Actualizar y Eliminar
+
