@@ -9,7 +9,9 @@
     <div class="card-body">
      
       <p class="card-text">
-            <form>
+            <form action="{{route('personas.store')}}" method= "POST">
+              @csrf <!--METODO PARA SEGURIDAD-->
+
                 <label for="">Apellido Paterno:</label>
                 <input type="text" name="paterno" class="form-control" required>
 
@@ -25,10 +27,14 @@
                 <br>
 
                 <!--PARA REGRESAR-->
-                <a href="{{route("personas.index")}}" class="btn btn-info">Regresar </a>
+                <a href="{{route("personas.index")}}" class="btn btn-info">                  
+                  <span class="fas fa-undo-alt"> </span> Regresar 
+                </a>
 
                 <!--PARA INSERTAR DATOS-->
-                <button class="btn btn-primary">Agregar</button>
+                <button class="btn btn-primary">
+                  <span class="fas fa-user-plus"> </span> Agregar
+                </button>
 
             </form>
 

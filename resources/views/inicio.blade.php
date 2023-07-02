@@ -13,8 +13,27 @@
   <div class="card-body">
     <h5 class="card-title text-center">Listado de Personas</h5>
 
+    <!--PARA QUE MUESTRE UN MENSAJE-->
+
+    <div class="row">
+        <div class="col-sm-12">
+            @if ($mensaje = Session::get('success')) <!--SI MENSAJE ESTA DEFINIDO-->
+                <div class="alert alert-success" role="alert">
+                    {{$mensaje}}
+                </div>
+                
+            @endif
+                
+           
+        </div>
+    </div>
+
     <p>
-        <a href="{{route('personas.create')}}" class="btn btn-primary"> Agregar Nueva Persona</a>
+        <a href="{{route('personas.create')}}" class="btn btn-primary"> 
+            <span class="fas fa-user-plus"> </span><!--ICONO-->
+            Agregar Nueva Persona 
+            
+            </a>
     </p>
 
     @php    
@@ -40,9 +59,17 @@
                     <td>{{$item -> paterno}}</td>    
                     <td>{{$item -> materno}}</td>    
                     <td>{{$item -> nombre}}</td>    
-                    <td>{{$item -> fecha_nacimiento}}</td>    
-                    <td><a class="btn btn-warning" href={{route('personas.edit')}}>Modificar</a></td>    
-                    <td><a class="btn btn-danger" href={{route('personas.show')}}>Eliminar</a></td>    
+                    <td>{{$item -> fecha_nacimiento}}</td> 
+                    <form action="{{route('personas.edit', $item->id)}}" method="GET">  <!--ENVIA EL ID-->
+                    <td><button class="btn btn-warning">
+                        <span class="fas fa-user-edit"></span> Modificar
+                    </button></td>   
+                     </form>  
+                     <form action="{{route('personas.show')}}"> 
+                    <td><button class="btn btn-danger" >
+                        <span class="fas fa-user-times"></span> Eliminar
+                    </button></td> 
+                   </form>    
                 </tr>  
                 
                 @endforeach
@@ -60,21 +87,6 @@
 </div>
 
   
-    <div class="row" hidden>
-
-        <h1>Usando Layouts</h1>
-        <i class="fab fa-500px"></i>
-
-        <!-- Para recibir datos utilizo INTERPOLACIÓN. print_r imprime datos en pantalla -->
-        {{print_r ($datos);}}
-
-        <!-- HREF que utiliza ruta para la vista CREAR -->
-       <a href="{{route('personas.create');}}"> Link para Crear </a>
-
-       <!-- HREF que utiliza ruta para la vista edit -->
-       <a href="{{route('personas.edit');}}"> Link para Editar </a>
-
-    </div>
 
    
 @endsection

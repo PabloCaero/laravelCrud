@@ -43,8 +43,13 @@
     </div>
     <form action="">
         <!--PARA REGRESAR-->
-        <a href="{{route("personas.index")}}" class="btn btn-info">Regresar </a>
-        <button href="{{route("personas.destroy")}}" class="btn btn-danger">Eliminar </a>
+        <a href="{{route("personas.index")}}" class="btn btn-info">
+          <span class="fas fa-undo-alt"> </span> Regresar 
+        </a>
+        <button href="{{route("personas.destroy")}}" class="btn btn-danger">
+          <span class="fas fa-user-times"></span>
+          Eliminar 
+        </a>
     </form>
   </div>
 
