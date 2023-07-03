@@ -348,3 +348,32 @@ public function update(Request $request, $id)
     
     </div>
   </div>
+
+------------------------
+Clase 12: Eliminar
+
+Mismo procedimiento pero con diferentes metodos
+
+------------------------
+Clase 12: Paginación
+
+Mismo procedimiento pero con diferentes metodos
+
+ public function index()
+    {
+        //TRAE TODA LA TABLA DE PERSONAS
+        //$datos = Personas::all();
+
+        //PARA PAGINACIÓN
+        $datos =  Personas::orderBy('paterno', 'desc')->paginate(3);
+
+        return view('inicio', compact('datos')); //ENTRE COMILLAS SIMPLES
+    }
+
+EN APP/PROVIDERS/APPSERVICEPROVIDERS, AGREGAR
+use Illuminate\Pagination\Paginator;
+
+ public function boot()
+    {
+        Paginator::useBootstrap();
+    }

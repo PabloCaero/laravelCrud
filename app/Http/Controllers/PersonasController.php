@@ -11,7 +11,11 @@ class PersonasController extends Controller
     public function index()
     {
         //TRAE TODA LA TABLA DE PERSONAS
-        $datos = Personas::all();
+        //$datos = Personas::all();
+
+        //PARA PAGINACIÓN
+        $datos =  Personas::orderBy('paterno', 'desc')->paginate(2);
+
         return view('inicio', compact('datos')); //ENTRE COMILLAS SIMPLES
     }
 
@@ -42,10 +46,12 @@ class PersonasController extends Controller
     }
 
    /*PARA TRAER UN SOLO REGISTRO*/ 
-    public function show(Personas $personas)
+    public function show($id)
     {
-        //Obtener UN SOLO REGISTRO de la tabla
-        return view('eliminar');
+        $personas = Personas::find($id); //BUSCA POR ID
+
+        return view("eliminar", compact('personas'));
+     
     }
 
    /*PARA EDITAR*/ 
@@ -81,9 +87,17 @@ class PersonasController extends Controller
     }
 
     
-    public function destroy(Personas $personas)
+    public function destroy(Request $request, $id)
     {
-        //ELIMINA UN REGISTRO DE LA BD
+        //ACCESO A DATOS
+        //CON $id TIENE QUE HACER UNA BUSQUEDA RAPIDA
+        $personas = Personas::find($id);
+
+         //METODO PARA GUARDAR
+         $personas->delete();
+
+         //PARA RETORNAR
+         return redirect()->route("personas.index")->with("success", "Eliminado con éxito!");   
        
     }
     

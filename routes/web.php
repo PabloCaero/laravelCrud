@@ -19,10 +19,10 @@ Route::post('/store', [PersonasController::class, 'store']) -> name('personas.st
 Route::get('/edit/{id}', [PersonasController::class, 'edit']) -> name('personas.edit');
 
 //RUTA DE FORMULARIO ELIMINAR
-Route::get('/destroy', [PersonasController::class, 'destroy']) -> name('personas.destroy');
+Route::delete('/destroy/{id}', [PersonasController::class, 'destroy']) -> name('personas.destroy');
 
 //RUTA DE MODIFICACIÓN EN LA BASE
 Route::put('/update/{id}', [PersonasController::class, 'update']) -> name('personas.update');
 
 //RUTA PARA TRAER UN SOLO REGISTRO
-Route::get('/show', [PersonasController::class, 'show']) -> name('personas.show');
+Route::get('/show/{id}', [PersonasController::class, 'show']) -> name('personas.show');

@@ -7,6 +7,11 @@
 <div class="card">
     <h5 class="card-header">Eliminar Registro</h5>
     <div class="card-body">
+
+      <!--RECIBO A LA PERSONA TRAIDA DESDE EL CONTROLADOR-->
+      @php
+       //print_r($personas); //ESTE ES NUESTRO OBJETO
+      @endphp
      
       <p class="card-text">
             
@@ -25,10 +30,10 @@
                     
                  </thead>
                  <tbody>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{$personas->paterno}}</td>
+                    <td>{{$personas->materno}}</td>
+                    <td>{{$personas->nombre}}</td>
+                    <td>{{$personas->fecha_nacimiento}}</td>
                  </tbody>
 
             </table>
@@ -41,12 +46,14 @@
         </p>
         
     </div>
-    <form action="">
+    <form action="{{route('personas.destroy', $personas->id)}}" method= "POST">
+      @csrf
+      @method('DELETE')
         <!--PARA REGRESAR-->
         <a href="{{route("personas.index")}}" class="btn btn-info">
           <span class="fas fa-undo-alt"> </span> Regresar 
         </a>
-        <button href="{{route("personas.destroy")}}" class="btn btn-danger">
+        <button class="btn btn-danger">
           <span class="fas fa-user-times"></span>
           Eliminar 
         </a>
