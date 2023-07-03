@@ -65,7 +65,7 @@
                         <span class="fas fa-user-edit"></span> Modificar
                     </button></td>   
                      </form>  
-                     <form action="{{route('personas.show')}}"> 
+                     <form action="{{route('personas.show', $item->id)}}" method="GET"> 
                     <td><button class="btn btn-danger" >
                         <span class="fas fa-user-times"></span> Eliminar
                     </button></td> 
@@ -77,6 +77,15 @@
 
            </div>
         </table>
+        <hr>
+        <!--PAGINACIÓN-->
+        <div class="row">
+            <div class="col-sm-12" text"">
+            {{$datos->links()}}
+            </div>
+        </div>
+
+     
 
 
 
